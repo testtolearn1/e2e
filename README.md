@@ -9,7 +9,7 @@ Tools : Mac OS
 Libraries used : mocha , webdriverio, chai.assert
 
 Steps To Run tests:
-1. Clone the project from 
+1. Clone the project from git@github.com:testtolearn1/e2e.git
 2. cd e2e
 3. npm i
 4. One one shell run $java -jar selenium-server-standalone-3.4.0.jar  to start selenium server
