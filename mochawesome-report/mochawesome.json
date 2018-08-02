@@ -1,0 +1,79 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 1,
+    "pending": 0,
+    "failures": 0,
+    "start": "2018-08-02T19:33:41.838Z",
+    "end": "2018-08-02T19:33:50.761Z",
+    "duration": 8923,
+    "testsRegistered": 1,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false,
+    "passPercentClass": "success",
+    "pendingPercentClass": "danger"
+  },
+  "suites": {
+    "uuid": "da31b6ff-13de-4679-b9ec-511f4c74b8e8",
+    "title": "",
+    "fullFile": "",
+    "file": "",
+    "beforeHooks": [],
+    "afterHooks": [],
+    "tests": [],
+    "suites": [
+      {
+        "uuid": "8b9ed60d-02fa-44da-a781-7df0e2d884ae",
+        "title": "Moduscreate Budgeting app",
+        "fullFile": "/Users/divyagupta/Workspace/budgeting/e2e/test/test2.js",
+        "file": "/test/test2.js",
+        "beforeHooks": [],
+        "afterHooks": [],
+        "tests": [
+          {
+            "title": "should add all groceries category expenses from the list and verify against reports data ",
+            "fullTitle": "Moduscreate Budgeting app should add all groceries category expenses from the list and verify against reports data ",
+            "timedOut": false,
+            "duration": 8916,
+            "state": "passed",
+            "speed": "slow",
+            "pass": true,
+            "fail": false,
+            "pending": false,
+            "code": "return browser\n    .init()\n    .url('https://budget.modus.app/#/budget')\n    .getTagName('tr').then(function(val){\n        xpatharr = []\n        tableArr =[]\n        sum =0 , incomesum =0\n        rowscount = val.length   // counts the items in list to iterate though amounts for a particular category like Groceries\n        console.log('This is number of rows in the list', rowscount)    \n        for(var i = 1 ; i<=rowscount; i++){\n            newxpath = '//*[@id=\"root\"]/main/section/table/tbody/tr['+i+']/td[1]/div[2]'  // creates dynamic xpath \n            xpatharr.push(newxpath)    //pushes the xpath for each line item in an array\n        }\n        xpatharr.forEach(function(xelem){\n            browser.getText(xelem).then(function(valueString){\n                console.log(\"This is valueString \", valueString)\n                if(valueString === 'Groceries'){    //this block adds up all the expenses made under Groceries category from the list\n                    i= (xpatharr.indexOf(xelem))+1\n                    newAmtxpath = '//*[@id=\"root\"]/main/section/table/tbody/tr['+i+']/td[3]/div[2]'  // xpath for amount\n                    this.getText(newAmtxpath).then(function(valueAmount){\n                    console.log(\"This is amount\", valueAmount)\n                    newvalueAmount = valueAmount.substr(2)  // remove '-' sign and $ , and converts the string to an integer so as to calculate sum of expenses under the given category\n                    finalvalueAmount = parseFloat(newvalueAmount.replace(',',''))\n                    sum = sum + finalvalueAmount;   // total expense sum for groceries\n                    console.log(\"this is Expense sum\", sum)\n                     })\n    \n                } else if(valueString === 'Income') {  // This calculates sum for Income\n                    i= (xpatharr.indexOf(xelem))+1\n                    newAmtxpath = '//*[@id=\"root\"]/main/section/table/tbody/tr['+i+']/td[3]/div[2]'\n                    this.getText(newAmtxpath).then(function(valueAmount){\n                    console.log(\"This is amount\", valueAmount)\n                    newvalueAmount = valueAmount.substr(1) //remove $ sign and converts string to int for calculations\n                    finalvalueAmount = parseFloat(newvalueAmount.replace(',',''))\n                    incomesum = incomesum + finalvalueAmount;\n                    console.log(\"this is incomesum\", incomesum)\n                    })\n                } else {\n                    return false;\n                }\n            })\n        })\n    })\n    \n    .pause(3000)\n    .click('//*[@href=\"#/reports\"]')  //  moves to reports tab and verifies the amount displayed for groceries should match the calculated one in above lines of code\n    .pause(3000)\n    .isVisible(\"//*[text()='Groceries']\").then(function(val){\n        assert.equal(val,true )\n    })\n    .isVisible(\"//*[text()='$423.34']\").then(function(val){\n    assert.equal(sum,423.34 )   //pass scenario\n    assert.equal(val,true )    //pass scenario\n   // assert.equal(sum,4233.34 )  //failed scenario : comment this line to completely pass the test, uncomment to check failed scenario\n    })",
+            "err": {},
+            "isRoot": false,
+            "uuid": "ebf034ef-62be-4bb4-98f0-92cd39530a77",
+            "isHook": false,
+            "skipped": false
+          }
+        ],
+        "suites": [],
+        "passes": [
+          "ebf034ef-62be-4bb4-98f0-92cd39530a77"
+        ],
+        "failures": [],
+        "pending": [],
+        "skipped": [],
+        "duration": 8916,
+        "root": false,
+        "rootEmpty": false,
+        "_timeout": 99999999
+      }
+    ],
+    "passes": [],
+    "failures": [],
+    "pending": [],
+    "skipped": [],
+    "duration": 0,
+    "root": true,
+    "rootEmpty": true,
+    "_timeout": 2000
+  },
+  "copyrightYear": 2018
+}
