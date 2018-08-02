@@ -12,7 +12,7 @@ Steps To Run tests:
 1. Clone the project from git@github.com:testtolearn1/e2e.git
 2. cd e2e
 3. npm i
-4. One one shell run $java -jar selenium-server-standalone-3.4.0.jar  to start selenium server
+4. One one shell run $java -jar bin/selenium-server-standalone-3.4.0.jar  to start selenium server
 5. On another shell run $mocha test/test1.js   , $mocha test/test2.js The test contain both positive and negative scenarios.
 The failing of negative scenarios could be avoided by commenting out line of code as mentioned in the test itself
 6. For running reports :  mochawesome is used
